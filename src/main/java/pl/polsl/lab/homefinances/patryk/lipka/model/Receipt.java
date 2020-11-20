@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class Receipt {
-    private List<pl.polsl.lab.homefinances.patryk.lipka.model.Product> productList;
+    private List<Product> productList;
     private Double value;
     private String date;
     private String shopName;
@@ -31,7 +31,7 @@ public class Receipt {
         this.value = 0.0;
         this.date = date;
         this.shopName = shopName;
-        this.productList = new ArrayList<pl.polsl.lab.homefinances.patryk.lipka.model.Product>();
+        this.productList = new ArrayList<Product>();
     }
 
     /**

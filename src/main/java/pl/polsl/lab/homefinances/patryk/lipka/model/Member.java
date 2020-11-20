@@ -9,7 +9,6 @@ import java.util.List;
  * @author Patryk Lipka
  * @version 1.0
  */
-
 public class Member {
     private String name;
     private List<Receipt> receiptList;
