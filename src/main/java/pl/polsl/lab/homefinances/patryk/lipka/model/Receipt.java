@@ -12,7 +12,7 @@ import java.util.List;
  * Class stores data about transaction
  *
  * @author Patryk Lipka
- * @version 1.0
+ * @version 1.1
  */
 
 public class Receipt {
@@ -39,7 +39,7 @@ public class Receipt {
      *
      * @return method returns list of Products of Receipt
      */
-    public List<pl.polsl.lab.homefinances.patryk.lipka.model.Product> getProductList() {
+    public List<Product> getProductList() {
         return productList;
     }
 
@@ -68,28 +68,14 @@ public class Receipt {
      * @throws InvalidDateException exception thrown when date is invalid
      */
     public void setDate(String dateString) throws InvalidDateException {
-        if (isDateValid(dateString)) {
-            this.date = dateString;
-        } else {
-            throw new InvalidDateException("Invalid date!");
-        }
-    }
-
-    /**
-     * Method that checks if date is valid
-     *
-     * @param dateString date we want to check
-     * @return method returns true if date is valid and false if it's not
-     */
-    public boolean isDateValid(String dateString) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
         try {
             format.parse(dateString);
-        } catch (ParseException e) {
-            return false;
+            this.date = dateString;
+        } catch (ParseException e){
+            throw new InvalidDateException("Invalid date!");
         }
-        return true;
     }
 
     /**
@@ -108,7 +94,7 @@ public class Receipt {
      * @param price is the price of the product
      */
     public void addProductToList(String name, Double price) {
-        pl.polsl.lab.homefinances.patryk.lipka.model.Product product = new pl.polsl.lab.homefinances.patryk.lipka.model.Product(name, price);
+        Product product = new Product(name, price);
         productList.add(product);
     }
 

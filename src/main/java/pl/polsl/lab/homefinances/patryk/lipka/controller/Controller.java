@@ -2,11 +2,11 @@ package pl.polsl.lab.homefinances.patryk.lipka.controller;
 
 import pl.polsl.lab.homefinances.patryk.lipka.exception.InvalidDateException;
 import pl.polsl.lab.homefinances.patryk.lipka.model.Member;
-import pl.polsl.lab.homefinances.patryk.lipka.model.Product;
 import pl.polsl.lab.homefinances.patryk.lipka.model.Receipt;
 import pl.polsl.lab.homefinances.patryk.lipka.view.ViewController;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Class allows the access and manipulation of data
  *
  * @author Patryk Lipka
- * @version 1.0
+ * @version 1.1
  */
 
 public class Controller {
@@ -381,11 +381,11 @@ public class Controller {
                     view.printReceiptData(i, shopName, dateString, value);
 
                     if (getFamilyMember(memberNumberInt).getReceiptList().get(i).getProductList().size() > 0) {
-                        for (Product product : getFamilyMember(memberNumberInt).getReceiptList().get(i).getProductList()) {
-                            String productName = product.getName();
-                            double productPrice = product.getPrice();
-                            view.printProduct(productName, productPrice);
-                        }
+                        getFamilyMember(memberNumberInt)
+                                .getReceiptList()
+                                .get(i).getProductList()
+                                .stream()
+                                .forEach(p -> view.printProduct(p.getName(), p.getPrice()));
                     }
                 }
             }
@@ -404,6 +404,31 @@ public class Controller {
             if (memberNumberInt < model.size()) {
                 String name = getFamilyMemberName(memberNumberInt);
                 view.printMember(name);
+            } else {
+                view.printLogMessage("Member number out of range, choose a number between: 0 and " +
+                        (model.size() - 1));
+            }
+        } else {
+            view.printLogMessage("Not a number!");
+        }
+    }
+
+    /**
+     * Method prints the number of Receipts of Member which value is lower than 50
+     *
+     * @param memberNumber it's the number of the Member you want to print the number of Receipts with value lower than 50
+     */
+    public void printNumberOfLowAndHighValueReceipts(String memberNumber){
+        if (isInteger(memberNumber)) {
+            int memberNumberInt = Integer.parseInt(memberNumber);
+            if (memberNumberInt < model.size()) {
+                ArrayList<Receipt> receipts = new ArrayList(model.get(memberNumberInt).getReceiptList());
+                LowValueReceiptCounter lowFilterCounter = new LowValueReceiptCounter();
+                int lowCounter = lowFilterCounter.apply(receipts);
+                HighValueReceiptCounter highFilterCounter = new HighValueReceiptCounter();
+                int highCounter = highFilterCounter.apply(receipts);
+                view.printLogMessage("Number of Receipts with value lower than 50: " + String.valueOf(lowCounter) + "\n" +
+                        "Number of Receipts with value higher than 200: " + String.valueOf(highCounter));
             } else {
                 view.printLogMessage("Member number out of range, choose a number between: 0 and " +
                         (model.size() - 1));

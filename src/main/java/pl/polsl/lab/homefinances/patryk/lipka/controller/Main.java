@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Class handles the interaction between application and user, it shows the menu and allows user to manipulate data.
  *
  * @author Patryk Lipka
- * @version 1.0
+ * @version 1.1
  */
 
 public class Main {
@@ -38,7 +38,7 @@ public class Main {
                     "5) Delete Receipt\n" +
                     "6) Add Product to Receipt\n" +
                     "7) Delete Product from Receipt\n" +
-                    "8) Print Member\n" +
+                    "8) Print number of Receipts with value lower than 50 and value higher than 200 of Member\n" +
                     "9) Print Member with list of Receipts\n" +
                     "Anything else will exit the program\n");
             String option = scanner.nextLine();
@@ -182,9 +182,9 @@ public class Main {
                     }
                     break;
                 case 8:
-                    System.out.println("Enter the number of Member you want to print:");
+                    System.out.println("Enter the number of Member you want to know amount of Receipts with value lower than 50 and value higher than 200");
                     memberNumber = scanner.nextLine();
-                    controller.printFamilyMember(memberNumber);
+                    controller.printNumberOfLowAndHighValueReceipts(memberNumber);
                     break;
                 case 9:
                     System.out.println("Enter the number of Member you want to print with list of Receipts:");
