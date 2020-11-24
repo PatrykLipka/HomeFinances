@@ -100,13 +100,16 @@ public class Receipt {
 
     /**
      * Method adds price of Product to value of Receipt
+     *
+     * @param productPrice price to add
      */
     public void addValue(double productPrice) {
         this.value += productPrice;
     }
 
     /**
-     * Method subtracts price of Product to value of Receipt
+     * Method subtracts price of Product from value of Receipt
+     * @param productPrice price to subtract
      */
     public void subValue(double productPrice) {
         this.value -= productPrice;

@@ -34,6 +34,22 @@ class ReceiptTest {
         }
     }
 
+//    /**
+//     * Test of setDate method, of class Receipt exception throwing.
+//     *
+//     * @param date date which will be tested
+//     */
+//    @ParameterizedTest
+//    @CsvSource({"20/12/1975", "30/02/2020", "2/2/1999", "19-04-2020"})
+//    void setDateShouldThrowInvalidDateException(String date) throws InvalidDateException {
+//        //GIVEN
+//        Receipt receipt = new Receipt("13/07/2020", "Little Shop");
+//        //WHEN
+//        receipt.setDate(date);
+//        //THEN
+//        assertThrows(new InvalidDateException(""));
+//    }
+
     /**
      * Test of addProductToList method, of class Receipt.
      *
