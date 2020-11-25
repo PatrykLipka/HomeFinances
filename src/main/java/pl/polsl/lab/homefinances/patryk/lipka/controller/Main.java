@@ -15,11 +15,11 @@ import java.util.Scanner;
  */
 
 public class Main {
-
     /**
      * Main method of application.
+     * Reads run arguments they are invalid program will end, if there are more arguments than one the program will only read the first one
      *
-     * @param args not used as Scanner is used for interaction with application
+     * @param args number of option with which you want to start the program
      */
     public static void main(String[] args) {
         List<Member> memberList = new ArrayList<>();
@@ -27,6 +27,7 @@ public class Main {
 
         Controller controller = new Controller(memberList, viewController);
 
+        boolean argsUsed = false;
         Scanner scanner = new Scanner(System.in);
         int optionInt;
         do {
@@ -41,7 +42,13 @@ public class Main {
                     "8) Print number of Receipts with value lower than 50 and value higher than 200 of Member\n" +
                     "9) Print Member with list of Receipts\n" +
                     "Anything else will exit the program\n");
-            String option = scanner.nextLine();
+            String option;
+            if (args.length != 0 && !argsUsed){
+                option = args[0];
+                argsUsed = true;
+            } else {
+                option = scanner.nextLine();
+            }
             if (controller.isInteger(option)) {
                 optionInt = Integer.parseInt(option);
             } else {
