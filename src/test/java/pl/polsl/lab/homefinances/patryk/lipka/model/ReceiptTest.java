@@ -49,9 +49,9 @@ class ReceiptTest {
         //WHEN
         try{
             receipt.setDate(date);
-            if(!isValid) fail();
-        }
         //THEN
+            assertTrue(isValid);
+        }
         catch (InvalidDateException exception) {
             assertFalse(isValid);
         }
