@@ -20,21 +20,13 @@ public enum MenuEnum {
 
     private int menuValue;
 
+    /**
+     * Constructor of MenuEnum
+     *
+     * @param menuValue value of certain enum
+     */
     MenuEnum(int menuValue){
        this.menuValue = menuValue;
-    }
-
-    /**
-     * Method that allows us to get value of enum
-     *
-     * @return returns number of enum
-     */
-    public int getValue() {
-        return menuValue;
-    }
-
-    public MenuEnum getEnum(){
-        return this;
     }
 }
 
