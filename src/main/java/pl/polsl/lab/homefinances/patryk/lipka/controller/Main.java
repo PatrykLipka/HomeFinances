@@ -1,11 +1,14 @@
 package pl.polsl.lab.homefinances.patryk.lipka.controller;
 
 import pl.polsl.lab.homefinances.patryk.lipka.model.Member;
+import pl.polsl.lab.homefinances.patryk.lipka.model.MenuEnum;
 import pl.polsl.lab.homefinances.patryk.lipka.view.ViewController;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static java.lang.Integer.min;
 
 /**
  * Class handles the interaction between application and user, it shows the menu and allows user to manipulate data.
@@ -24,48 +27,38 @@ public class Main {
     public static void main(String[] args) {
         List<Member> memberList = new ArrayList<>();
         ViewController viewController = new ViewController();
-
         Controller controller = new Controller(memberList, viewController);
 
         boolean argsUsed = false;
         Scanner scanner = new Scanner(System.in);
         int optionInt;
         do {
-            System.out.println("\nMenu:\n" +
-                    "1) Add new Member\n" +
-                    "2) Delete Member\n" +
-                    "3) Add new Receipt\n" +
-                    "4) Change date of Receipt\n" +
-                    "5) Delete Receipt\n" +
-                    "6) Add Product to Receipt\n" +
-                    "7) Delete Product from Receipt\n" +
-                    "8) Print number of Receipts with value lower than 50 and value higher than 200 of Member\n" +
-                    "9) Print Member with list of Receipts\n" +
-                    "Anything else will exit the program\n");
+            viewController.printMenu();
+
             String option;
-            if (args.length != 0 && !argsUsed){
+            if (args.length != 0 && !argsUsed) {
                 option = args[0];
                 argsUsed = true;
             } else {
                 option = scanner.nextLine();
             }
             if (controller.isInteger(option)) {
-                optionInt = Integer.parseInt(option);
+                optionInt = min(9, (Integer.parseInt(option)) >= 0 ? Integer.parseInt(option) : 9);
             } else {
-                optionInt = -1;
+                optionInt = 9;
             }
-            switch (optionInt) {
-                case 1:
+            switch (MenuEnum.values()[optionInt]) {
+                case addMember:
                     System.out.println("Enter new Member name:");
                     String name = scanner.nextLine();
                     controller.addFamilyMember(name);
                     break;
-                case 2:
+                case deleteMember:
                     System.out.println("Enter the number of Member you want to delete");
                     String memberNumber = scanner.nextLine();
                     controller.deleteFamilyMember(memberNumber);
                     break;
-                case 3:
+                case addReceipt:
                     System.out.println("Enter the number of Member to add a new Receipt to:");
                     memberNumber = scanner.nextLine();
                     System.out.println("Enter name of the shop:");
@@ -112,7 +105,7 @@ public class Main {
                         }
                     }
                     break;
-                case 4:
+                case changeDate:
                     System.out.println("Enter the number of Member you want to change the date of a Receipt:");
                     memberNumber = scanner.nextLine();
                     System.out.println("Enter the number of the Receipt:");
@@ -139,14 +132,14 @@ public class Main {
                         controller.changeDateOfReceipt(memberNumber, receiptNumber, dateString);
                     }
                     break;
-                case 5:
+                case deleteReceipt:
                     System.out.println("Enter the number of Member to delete a Receipt from:");
                     memberNumber = scanner.nextLine();
                     System.out.println("Enter the number of the receipt to delete:");
                     receiptNumber = scanner.nextLine();
                     controller.deleteReceipt(memberNumber, receiptNumber);
                     break;
-                case 6:
+                case addProduct:
                     System.out.println("Enter the number of Member to add a new Product to Receipt:");
                     memberNumber = scanner.nextLine();
                     System.out.println("Enter the number of the Receipt:");
@@ -168,7 +161,7 @@ public class Main {
                         }
                     }
                     break;
-                case 7:
+                case deleteProduct:
                     System.out.println("Enter the number of Member to delete a Product from Receipt:");
                     memberNumber = scanner.nextLine();
                     System.out.println("Enter the number of the Receipt:");
@@ -188,12 +181,12 @@ public class Main {
                         }
                     }
                     break;
-                case 8:
+                case printFilter:
                     System.out.println("Enter the number of Member you want to know amount of Receipts with value lower than 50 and value higher than 200");
                     memberNumber = scanner.nextLine();
                     controller.printNumberOfLowAndHighValueReceipts(memberNumber);
                     break;
-                case 9:
+                case printMemberWithReceipts:
                     System.out.println("Enter the number of Member you want to print with list of Receipts:");
                     memberNumber = scanner.nextLine();
                     controller.printFamilyMemberWithReceipts(memberNumber);
@@ -202,7 +195,7 @@ public class Main {
                     break;
             }
 
-        } while (optionInt >= 1 && optionInt <= 9);
+        } while (optionInt >= 0 && optionInt <= 8);
         scanner.close();
     }
 }

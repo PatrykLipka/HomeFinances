@@ -1,5 +1,6 @@
 package pl.polsl.lab.homefinances.patryk.lipka.model;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pl.polsl.lab.homefinances.patryk.lipka.exception.InvalidDateException;
@@ -34,21 +35,27 @@ class ReceiptTest {
         }
     }
 
-//    /**
-//     * Test of setDate method, of class Receipt exception throwing.
-//     *
-//     * @param date date which will be tested
-//     */
-//    @ParameterizedTest
-//    @CsvSource({"20/12/1975", "30/02/2020", "2/2/1999", "19-04-2020"})
-//    void setDateShouldThrowInvalidDateException(String date) throws InvalidDateException {
-//        //GIVEN
-//        Receipt receipt = new Receipt("13/07/2020", "Little Shop");
-//        //WHEN
-//        receipt.setDate(date);
-//        //THEN
-//        assertThrows(new InvalidDateException(""));
-//    }
+    /**
+     * Test of setDate method, of class Receipt exception throwing.
+     *
+     * @param date date which will be tested
+     * @param isValid is passed date valid
+     */
+    @ParameterizedTest
+    @CsvSource({"20/12/1975, true", "30/02/2020, false", "2/2/1999, true", "19-04-2020, false"})
+    void setDateExceptionThrowTest(String date, boolean isValid) {
+        //GIVEN
+        Receipt receipt = new Receipt("13/07/2020", "Little Shop");
+        //WHEN
+        try{
+            receipt.setDate(date);
+            if(!isValid) fail();
+        }
+        //THEN
+        catch (InvalidDateException exception) {
+            assertFalse(isValid);
+        }
+    }
 
     /**
      * Test of addProductToList method, of class Receipt.

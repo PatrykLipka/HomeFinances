@@ -52,4 +52,21 @@ public class ViewController {
     public void printLogMessage(String message) {
         System.out.println(message);
     }
+
+    /**
+     * Method prints menu
+     */
+    public void printMenu(){
+        System.out.println("\nMenu:\n" +
+                "0) Add new Member\n" +
+                "1) Delete Member\n" +
+                "2) Add new Receipt\n" +
+                "3) Change date of Receipt\n" +
+                "4) Delete Receipt\n" +
+                "5) Add Product to Receipt\n" +
+                "6) Delete Product from Receipt\n" +
+                "7) Print number of Receipts with value lower than 50 and value higher than 200 of Member\n" +
+                "8) Print Member with list of Receipts\n" +
+                "Anything else will exit the program\n");
+    }
 }

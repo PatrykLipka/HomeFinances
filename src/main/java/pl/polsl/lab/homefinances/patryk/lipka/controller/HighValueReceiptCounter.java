@@ -20,7 +20,7 @@ public class HighValueReceiptCounter implements ReceiptCounter{
     public Integer apply(ArrayList<Receipt> receipts) {
         return Math.toIntExact(receipts
                 .stream()
-                .filter(r -> r.getValue() > 50)
+                .filter(r -> r.getValue() > 200)
                 .count());
     }
 }
